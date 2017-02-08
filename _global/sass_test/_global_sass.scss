@@ -1,0 +1,121 @@
+/*-----
+BASE STYLES
+-------*/
+@-webkit-viewport { width:  device-width;  }
+@-moz-viewport { width:  device-width;  }
+@-ms-viewport { width:  device-width;  }
+@-o-viewport { width:  device-width;  }
+@viewport { width:  device-width;  }
+
+body { font-family: Helvetica, sans-serif; font-size: 62.5%; background: #fff; color: #333; }
+#wrapper { position: relative; display: block; background: #fff; padding: 20px; border: 1px solid #eee; }
+h1 { font-weight: bold; font-size: 40px; text-align: center; padding-top: 10px; margin: 0; color: #000; }
+
+@media only screen and (min-width: 61.25em) { 
+	#wrapper { width: 980px; margin: 10px auto; }
+}
+
+#debugger{ position: fixed;	display: none; bottom:0px; right:0px; margin:10px; padding:10px; background-color:#000; color:#fff; width:300px; height:150px; overflow-y:auto; z-index:1000000; font-size:12px; border:1px solid #fff; }
+
+
+/*SCSS*/
+.less div {  background: #000; color: #fff;  padding: 10px; margin: 10px; font-size: 1.2em; }
+
+@mixin rounded-corners ($radius: 5px) { -webkit-border-radius: $radius; -moz-border-radius: $radius; border-radius: $radius; }
+.rounded-corners-test-1 { @include rounded-corners; }
+.rounded-corners-test-2 { @include rounded-corners(20px); }
+
+$test-color: #ff0000;
+.less div.test-3 { color: $test-color; }
+
+@mixin transition ($prop: all, $time: 1s, $ease: linear) { -webkit-transition: $prop $time $ease; -moz-transition: $prop $time $ease; -o-transition: $prop $time $ease;	-ms-transition: $prop $time $ease; transition: $prop $time $ease; }
+.test-4 { @include transition(all, 250ms, ease-in); } 
+.test-4:hover { opacity: 0.2; }
+
+@mixin transform ($rotate: 90deg, $scale: 1, $skew: 1deg, $translate: 10px) { -webkit-transform: rotate($rotate) scale($scale) skew($skew) translate($translate); -moz-transform: rotate($rotate) scale($scale) skew($skew) translate($translate); -o-transform: rotate($rotate) scale($scale) skew($skew) translate($translate); -ms-transform: rotate($rotate) scale($scale) skew($skew) translate($translate); transform: rotate($rotate) scale($scale) skew($skew) translate($translate); }
+.test-5 { @include transition(all, 1s, ease-in); } 
+.test-5:hover { @include transform(5deg, 1.5, 1deg, 0px); } 
+
+@mixin gradient ($origin: left, $start: #ffffff, $stop: #000000) {	background-color: $start;	background-image: -webkit-linear-gradient($origin, $start, $stop); background-image: -moz-linear-gradient($origin, $start, $stop); background-image: -o-linear-gradient($origin, $start, $stop);
+ background-image: -ms-linear-gradient($origin, $start, $stop); background-image: linear-gradient($origin, $start, $stop); }
+.less div.test-6 { @include gradient(left, #000, #eee); } 
+
+@mixin reflect ($length: 50%, $opacity: 0.2){	-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop($length, transparent), to(rgba(255,255,255,$opacity))); }
+.less div.test-7 { @include reflect(20%, 0.5); margin-bottom: 50px; }
+
+$base: #0000aa;
+$lighter1: lighten($base, 10%);
+$lighter2: lighten($base, 20%);
+$darker1: darken($base, 10%);
+$darker2: darken($base, 20%);
+.less div.test-8 { overflow: auto; padding: 10px 0; }
+.test-8 span { padding: 0 0 0 1%; width: 16%; margin: 0 1%; float: left; display: block; border:1px solid #fff; }
+.test-8 .base  { background: $base; }
+.test-8 .lighter-1 { background: $lighter1; }
+.test-8 .lighter-2 { background: $lighter2; }
+.test-8 .darker-1 { background: $darker1; }
+.test-8 .darker-2 { background: $darker2; }
+
+.test-9 a { color: #fff; &.potato { color: #ccc; }; &:hover { color: #ff0000; }; margin: 0 20px 0 0; }
+
+.test-10 { 
+	ul.parent-ul { position:relative; display: block; overflow: auto; list-style: none; margin: 0; padding: 0; } 
+	li.parent-li { position:relative; display: block; overflow: auto; width: 20%; float: left; border: 1px solid #fff; margin: 0 10px 0 0; padding: 2px; } 
+}
+
+.test-11{
+	ul.parent-ul { position:relative; display: block;  list-style: none; margin: 0; padding: 0; } 
+	li.parent-li { position:relative; display: block; margin: 0 0 5px 0; padding: 2px; background: #fff; color: #000; } 
+}
+
+@for $i from 1 through 4 {    
+		.test-11 li.parent-li:nth-child(#{$i}) {
+		width: ($i * 100% / 4);
+		font-size: 5px+(3px * $i );
+	}
+}
+
+
+
+/*.make-random(@min, @max) {@rnd:floor(`Math.random()*@{max}+@{min}`);}
+.make-random2(@min, @max) {@rnd2:floor(`Math.random()*@{max}+@{min}`);}
+.make-random3(@min, @max) {@rnd3:floor(`Math.random()*@{max}+@{min}`);}*/
+.test-12{
+	span { position:relative; display: block; margin: 0 0 5px 0; padding: 2px; background: #fff; color: #000;  }
+	
+	span:nth-child(1) { width:random(300) + 100 + px; }
+ 
+	span:nth-child(2) { width:random(300) + 100 + px; }
+
+	span:nth-child(3) { width:random(300) + 100 + px; }
+}
+
+.test-13{
+	span { display: block; width: 50px; height: 50px; background: #00dd00; overflow: hidden; text-indent: -9999px;  }
+	
+	span { 
+		animation-duration: 1500ms; 
+		animation-name: changewidth;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+		animation-timing-function:linear;
+	}
+}
+
+@keyframes changewidth {
+  0% {
+    width: 50px;
+	background: #00dd00;
+  }
+  
+	50% {
+    width: 250px;
+	background: #dd0000;
+  }
+
+  100% {
+    width: 900px;
+	background: #0000dd;
+  }
+}
+
